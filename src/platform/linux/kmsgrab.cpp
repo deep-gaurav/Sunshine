@@ -711,23 +711,28 @@ namespace platf {
               width = viewport.width;
               height = viewport.height;
 
-              switch (card.get_panel_orientation(plane->plane_id)) {
-                case DRM_MODE_ROTATE_270:
-                  BOOST_LOG(info) << "Detected panel orientation at 270";
-                  BOOST_LOG(debug) << "Detected panel orientation at 90, swapping width and height.";
-                  width = viewport.height;
-                  height = viewport.width;
-                  break;
-                case DRM_MODE_ROTATE_90:
-                  BOOST_LOG(info) << "Detected panel orientation at 90";
-                case DRM_MODE_ROTATE_180:
-                  BOOST_LOG(info) << "Detected panel orientation at 180";
-                  BOOST_LOG(warning) << "Panel orientation is unsupported, screen capture may not work correctly.";
-                  break;
-                case DRM_MODE_ROTATE_0:
-                  BOOST_LOG(info) << "Detected panel orientation at 0";
-                  break;
-              }
+              // switch (card.get_panel_orientation(plane->plane_id)) {
+              //   case DRM_MODE_ROTATE_270:
+              //     BOOST_LOG(info) << "Detected panel orientation at 270";
+              //     BOOST_LOG(debug) << "Detected panel orientation at 90, swapping width and height.";
+              //     width = viewport.height;
+              //     height = viewport.width;
+              //     break;
+              //   case DRM_MODE_ROTATE_90:
+              //     BOOST_LOG(info) << "Detected panel orientation at 90";
+              //   case DRM_MODE_ROTATE_180:
+              //     BOOST_LOG(info) << "Detected panel orientation at 180";
+              //     BOOST_LOG(warning) << "Panel orientation is unsupported, screen capture may not work correctly.";
+              //     break;
+              //   case DRM_MODE_ROTATE_0:
+              //     BOOST_LOG(info) << "Detected panel orientation at 0";
+              //     break;
+              // }
+
+              BOOST_LOG(info) << "Rotating forcibly";
+
+              width = viewport.height;
+              height = viewport.width;
 
               offset_x = viewport.offset_x;
               offset_y = viewport.offset_y;
