@@ -416,11 +416,13 @@ namespace platf {
         auto props = plane_props(plane_id);
         auto value = prop_value_by_name(props, "rotation"sv);
         if (value) {
+          BOOST_LOG(into) << "Detected panel orientation.";
+
           return *value;
         }
 
         BOOST_LOG(error) << "Failed to determine panel orientation, defaulting to landscape.";
-        return DRM_MODE_ROTATE_0;
+        return DRM_MODE_ROTATE_270;
       }
 
       int
@@ -713,17 +715,23 @@ namespace platf {
 
               switch (card.get_panel_orientation(plane->plane_id)) {
                 case DRM_MODE_ROTATE_270:
+                  BOOST_LOG(info) << "Detected panel orientation at 270, swapping width and height.";
                   BOOST_LOG(debug) << "Detected panel orientation at 90, swapping width and height.";
                   width = viewport.height;
                   height = viewport.width;
                   break;
                 case DRM_MODE_ROTATE_90:
+                  BOOST_LOG(info) << "Detected panel orientation at 90";
                 case DRM_MODE_ROTATE_180:
+                  BOOST_LOG(info) << "Detected panel orientation at 180, swapping width and height.";
                   BOOST_LOG(warning) << "Panel orientation is unsupported, screen capture may not work correctly.";
                   BOOST_LOG(warning) << "Legion Go linux panel support mod.";
                   width = viewport.height;
                   height = viewport.width;
                   break;
+
+                case DRM_MODE_ROTATE_0:
+                  BOOST_LOG(info) << "Detected panel orientation at 0";
               }
               
               offset_x = viewport.offset_x;
