@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=@PROJECT_NAME@
-Exec=/usr/bin/env systemctl start --u sunshine
+Exec=/usr/bin/env systemctl start --u sunshine.service
 Version=1.0
 Comment=@PROJECT_DESCRIPTION@
 Icon=sunshine
